@@ -9,3 +9,6 @@ scheme to bring those screens back to the user running ansible, but this seemed 
 This deployment scenario used Ubuntu 18.04 desktop so there was a local browser to test with pre-installed.
 
 Had to pre-install ansible, sshpass and openssh-server for deployment connection processes that are not included in the playbook.
+
+In order to stay with the free GitHub account (due to file size contraints), I needed to download the jira software to the instance as part of the playbook, so
+internet connectivity is assumed.
