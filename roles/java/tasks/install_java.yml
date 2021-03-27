@@ -1,0 +1,10 @@
+#################################################
+# Corporate legal boilerplate                   #
+# goes in here                                  #
+#################################################
+
+- name: Install latest version of Java 8
+  apt: 
+    name:  openjdk-8-jre
+    state: latest
+    update_cache: yes

@@ -1,0 +1,23 @@
+#################################################
+# Corporate legal boilerplate                   #
+# goes in here                                  #
+#################################################
+
+# Main play to install postgresql and jira
+- name: Run play to install Jira and postgresql
+  hosts:
+    - all
+  become_user: root
+  become: true
+  become_method: sudo
+  gather_facts: yes
+  tasks:
+    - name: Only run "update_cache=yes" if the last one is more than 3600 seconds ago
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+  roles:
+    - user_setup
+    - java
+    - postgresql
+    - jira

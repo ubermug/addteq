@@ -1,0 +1,23 @@
+#################################################
+# Corporate legal boilerplate                   #
+# goes in here                                  #
+#################################################
+
+base_software_directory: "/opt/addteq"
+
+#Beginning of postgresql variables
+postgres_db_name: "jiradb"
+postgres_db_user: "jiradbuser"
+# This is where I would recommend using ansible vault as to not include a clear text password in the code, 
+# but for the purposes of the demo I will exclude that portion
+postgres_db_password: "jiradbpassword"
+
+#Beginning of jira variables
+jira_user: "jira"
+jira_group: "jira"
+jira_download_link: "http://www.atlassian.com/software/jira/downloads/binary"
+jira_path: "{{ base_software_directory }}/jira"
+jira_software_version: "8.13.5"
+jira_software_file: "atlassian-jira-software-{{ jira_software_version }}.tar.gz"
+jira_software_folder: "atlassian-jira-software-{{ jira_software_version }}"
+jira_software_home: "{{ jira_path }}/jirasoftware-home"

@@ -1,0 +1,55 @@
+#################################################
+# Corporate legal boilerplate                   #
+# goes in here                                  #
+#################################################
+
+# This installtion was completed assuming that the postgresql server was local to the Jira
+# installation as there was no mention in the instructions that it would not be.
+
+- name:  Install the postgresql package
+  apt:
+    name: postgresql
+    state: latest
+
+- name: Ensure that the service is running
+  service: 
+    name: postgresql
+    state: restarted
+
+
+- name: Install package prerequistes
+  apt:
+    name: python-psycopg2
+    state: latest
+
+- name: Ensure database is created
+  become: true
+  become_user: postgres
+  postgresql_db: 
+    name: "{{ postgres_db_name }}"
+    encoding: 'UNICODE'
+    lc_collate: 'C'
+    lc_ctype: 'C'
+    template: 'template0'
+    state: present
+
+- name: Ensure user has access to the database
+  become: true
+  become_user: postgres
+  postgresql_user: 
+    db: "{{ postgres_db_name }}"
+    name: "{{ postgres_db_user }}"
+    password: "{{ postgres_db_password }}"
+    priv: ALL
+    state: present
+    encrypted: yes
+
+- name: Ensure user does not have unnecessary privileges
+  become: true
+  become_user: postgres
+  postgresql_user: 
+    name: "{{ postgres_db_user }}"
+    role_attr_flags: NOSUPERUSER,NOCREATEDB
+    state: present
+
+

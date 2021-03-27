@@ -1,0 +1,13 @@
+#################################################
+# Corporate legal boilerplate                   #
+# goes in here                                  #
+#################################################
+
+---
+- import_tasks: setup_groups.yml
+  tags:
+    - setup
+
+- import_tasks: setup_users.yml
+  tags:
+    - setup

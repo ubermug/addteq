@@ -1,0 +1,13 @@
+#################################################
+# Corporate legal boilerplate                   #
+# goes in here                                  #
+#################################################
+
+---
+- import_tasks: install_jira.yml
+  tags:
+    - jira
+
+- import_tasks: jira_service.yml
+  tags:
+    - jira

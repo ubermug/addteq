@@ -1,0 +1,12 @@
+#################################################
+# Corporate legal boilerplate                   #
+# goes in here                                  #
+#################################################
+
+- name: Ensure the jira user exists
+  user:
+    name: "{{ jira_user }}"
+    groups: "{{ jira_group }}"
+    comment: "Account for running Jira Software"
+    shell: /bin/bash
+    create_home: yes

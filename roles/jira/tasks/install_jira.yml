@@ -1,0 +1,67 @@
+#################################################
+# Corporate legal boilerplate                   #
+# goes in here                                  #
+#################################################
+
+- name: Download the Source
+  get_url: 
+    url: "{{ jira_download_link }}/{{ jira_software_file }}"
+    dest: "/tmp/{{ jira_software_file }}""
+
+- name: Create the installation directory
+  file: 
+    path: "{{ jira_path }}/"
+    state: directory
+    owner: "{{ jira_user }}"
+    group: "{{ jira_group}}"
+    mode: '0744'
+
+- name: Unarchive the Jira software to the installation directory
+  unarchive: 
+    src: "{{ jira_software_file }}"
+    dest: "{{ jira_path }}/"
+    owner: "{{ jira_user }}"
+    group: "{{ jira_group}}"
+
+- name: Ensure the ownership of the unarchived files are correct
+  file: 
+    path: "{{ jira_path }}/"
+    state: directory
+    owner: "{{ jira_user }}"
+    group: "{{ jira_group}}"
+    mode: '0777'
+    recurse: yes
+
+- name: Create the home directory
+  file: 
+    path: "{{ jira_software_home }}"
+    state: directory
+    owner: "{{ jira_user }}"
+    group: "{{ jira_group}}"
+    mode: '0777'
+
+- name: Set the environment variable for Jira
+  lineinfile:
+    state: present
+    dest: /etc/profile
+    regexp: "export JIRA_HOME=.*"
+    line: "export JIRA_HOME={{ jira_software_home }}"
+
+- name: Edit the jira application properties file
+  lineinfile: 
+    state: present
+    dest: "{{ jira_path}}/{{jira_software_folder}}-standalone/atlassian-jira/WEB-INF/classes/jira-application.properties"
+    regex: "jira.home=.*"
+    line: "jira.home={{ jira_software_home }}"
+
+- name: Start Jira configuration script to connect to postgresql database
+  shell: "{{ jira_path}}/{{jira_software_folder}}-standalone/bin/config.sh"
+  become: yes
+  become_user: "{{ jira_user }}"
+
+# No mention was made in the instuctions to change the port, so I am assuming the the connector and server ports can be left as is
+
+#- name: Start Jira
+#  shell: "{{ jira_path}}/{{jire_software_folder}}/{{jire_software_folder}}-standalone/bin/start-jira.sh"
+#  become: yes
+#  become_user: "{{ jira_user }}"

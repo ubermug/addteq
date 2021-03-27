@@ -1,0 +1,15 @@
+#################################################
+# Corporate legal boilerplate                   #
+# goes in here                                  #
+#################################################
+
+- name: Place the init.d template
+  template:
+    src: jira.j2
+    dest: /etc/init.d/jira
+    owner: "{{ jira_user }}"
+    group: "{{ jira_group }}"
+    mode: "0755"
+
+- name: Place symlinks in run level directories so they start up on boot
+  shell: update-rc.d jira defaults

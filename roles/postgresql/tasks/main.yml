@@ -1,0 +1,9 @@
+#################################################
+# Corporate legal boilerplate                   #
+# goes in here                                  #
+#################################################
+
+---
+- import_tasks: install_postgresql.yml
+  tags:
+    - postgresql

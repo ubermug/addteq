@@ -1,0 +1,9 @@
+#################################################
+# Corporate legal boilerplate                   #
+# goes in here                                  #
+#################################################
+
+- name: Setup the jira group
+  group:
+    name: "{{ jira_group }}"
+    state: present
