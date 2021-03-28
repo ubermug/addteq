@@ -6,7 +6,7 @@
 - name: Download the Source
   get_url: 
     url: "{{ jira_download_link }}/{{ jira_software_file }}"
-    dest: "/tmp/{{ jira_software_file }}""
+    dest: "/tmp/{{ jira_software_file }}"
 
 - name: Create the installation directory
   file: 
@@ -18,10 +18,11 @@
 
 - name: Unarchive the Jira software to the installation directory
   unarchive: 
-    src: "{{ jira_software_file }}"
+    src: "/tmp/{{ jira_software_file }}"
     dest: "{{ jira_path }}/"
     owner: "{{ jira_user }}"
     group: "{{ jira_group}}"
+    remote_src: yes
 
 - name: Ensure the ownership of the unarchived files are correct
   file: 
@@ -51,17 +52,5 @@
   lineinfile: 
     state: present
     dest: "{{ jira_path}}/{{jira_software_folder}}-standalone/atlassian-jira/WEB-INF/classes/jira-application.properties"
-    regex: "jira.home=.*"
+    regexp: "jira.home=.*"
     line: "jira.home={{ jira_software_home }}"
-
-- name: Start Jira configuration script to connect to postgresql database
-  shell: "{{ jira_path}}/{{jira_software_folder}}-standalone/bin/config.sh"
-  become: yes
-  become_user: "{{ jira_user }}"
-
-# No mention was made in the instuctions to change the port, so I am assuming the the connector and server ports can be left as is
-
-#- name: Start Jira
-#  shell: "{{ jira_path}}/{{jire_software_folder}}/{{jire_software_folder}}-standalone/bin/start-jira.sh"
-#  become: yes
-#  become_user: "{{ jira_user }}"
