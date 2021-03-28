@@ -6,25 +6,23 @@
 # Define some variables
 # Name of app ( JIRA, Confluence, etc )
 APP=jira
-# Name of the user to run as
-{# place the jira user here #}
-USER={{ jira_user }}
+
 # Location of application's bin directory
 {# place the jira file path here #}
 BASE={{ jira_path}}/{{jira_software_folder}}-standalone
 # Location of Java JDK
-export JAVA_HOME=/usr/lib/jvm/java-6-sun
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
 
 case "$1" in
   # Start command
   start)
     echo "Starting $APP"
-    /bin/su -m $USER -c "cd $BASE/logs && $BASE/bin/startup.sh &> /dev/null"
+      cd $BASE/logs && $BASE/bin/startup.sh &> /dev/null
     ;;
   # Stop command
   stop)
     echo "Stopping $APP"
-    /bin/su -m $USER -c "$BASE/bin/shutdown.sh &> /dev/null"
+      $BASE/bin/shutdown.sh &> /dev/null
     echo "$APP stopped successfully"
     ;;
    # Restart command
