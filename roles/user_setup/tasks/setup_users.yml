@@ -10,3 +10,11 @@
     comment: "Account for running Jira Software"
     shell: /bin/bash
     create_home: yes
+
+- name: Ensure the confluence user exists
+  user:
+    name: "{{ confluence_user }}"
+    groups: "{{ confluence_group }}"
+    comment: "Account for running Confluence Software"
+    shell: /bin/bash
+    create_home: yes

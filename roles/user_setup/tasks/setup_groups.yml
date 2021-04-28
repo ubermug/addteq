@@ -7,3 +7,8 @@
   group:
     name: "{{ jira_group }}"
     state: present
+
+- name: Setup the confluence group
+  group:
+    name: "{{ confluence_group }}"
+    state: present
