@@ -2,3 +2,7 @@
 - import_tasks: install_confluence.yml
   tags:
     - confluence
+
+- import_tasks: confluence_service.yml
+  tags:
+    - confluence
