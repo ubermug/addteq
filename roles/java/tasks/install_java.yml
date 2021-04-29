@@ -4,7 +4,12 @@
 #################################################
 
 - name: Install latest version of Java 8
-  apt: 
+  apt:
     name:  openjdk-8-jre
     state: latest
     update_cache: yes
+
+- name: Set java home environment variable
+  lineinfile:
+    path: /etc/environment
+    line: "JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64"
