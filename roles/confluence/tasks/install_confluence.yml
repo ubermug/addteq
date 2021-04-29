@@ -51,6 +51,6 @@
 - name: Edit the confluence application properties file
   lineinfile:
     state: present
-    dest: "{{ confluence_path}}/{{confluence_software_folder}}-standalone/atlassian-confluence/WEB-INF/classes/confluence-application.properties"
+    dest: "{{ confluence_path}}/{{confluence_software_folder}}/atlassian-confluence/WEB-INF/classes/confluence-application.properties"
     regexp: "confluence.home=.*"
     line: "confluence.home={{ confluence_software_home }}"
