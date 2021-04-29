@@ -1,0 +1,40 @@
+#!/bin/sh -e
+# JIRA startup script
+#chkconfig: 2345 80 05
+#description: JIRA
+
+# Define some variables
+# Name of app ( JIRA, Confluence, etc )
+APP=confluence
+
+# Location of application's bin directory
+{# place the jira file path here #}
+BASE={{ confluence_path}}/{{confluence_software_folder}}
+# Location of Java JDK
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
+
+case "$1" in
+  # Start command
+  start)
+    echo "Starting $APP"
+      cd $BASE/logs && $BASE/bin/startup.sh &> /dev/null
+    ;;
+  # Stop command
+  stop)
+    echo "Stopping $APP"
+      $BASE/bin/shutdown.sh &> /dev/null
+    echo "$APP stopped successfully"
+    ;;
+   # Restart command
+   restart)
+        $0 stop
+        sleep 5
+        $0 start
+        ;;
+  *)
+    echo "Usage: /etc/init.d/$APP {start|restart|stop}"
+    exit 1
+    ;;
+esac
+
+exit 0

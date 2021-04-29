@@ -1,0 +1,15 @@
+#################################################
+# Corporate legal boilerplate                   #
+# goes in here                                  #
+#################################################
+
+- name: Place the init.d template
+  template:
+    src: confluence.j2
+    dest: /etc/init.d/confluence
+    owner: "{{ confluence_user }}"
+    group: "{{ confluence_group }}"
+    mode: "0755"
+
+- name: Place symlinks in run level directories so they start up on boot
+  shell: update-rc.d confluence defaults

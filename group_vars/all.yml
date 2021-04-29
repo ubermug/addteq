@@ -28,5 +28,5 @@ confluence_download_link: "http://www.atlassian.com/software/confluence/download
 confluence_path: "{{ base_software_directory }}/confluence"
 confluence_software_version: "7.12.0"
 confluence_software_file: "atlassian-confluence-{{ confluence_software_version }}.tar.gz"
-confluence_software_folder: "atlassian-confluence-software-{{ confluence_software_version }}"
+confluence_software_folder: "atlassian-confluence-{{ confluence_software_version }}"
 confluence_software_home: "{{ confluence_path }}/confluencesoftware-home"

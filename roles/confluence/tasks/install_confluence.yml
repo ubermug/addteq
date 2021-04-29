@@ -41,16 +41,16 @@
     group: "{{ confluence_group}}"
     mode: '0777'
 
-#- name: Set the environment variable for confluence
-#  lineinfile:
-#    state: present
-#    dest: /etc/profile
-#    regexp: "export confluence_HOME=.*"
-#    line: "export confluence_HOME={{ confluence_software_home }}"
+- name: Set the environment variable for confluence
+  lineinfile:
+    state: present
+    dest: /etc/profile
+    regexp: "export confluence_HOME=.*"
+    line: "export confluence_HOME={{ confluence_software_home }}"
 
-#- name: Edit the confluence application properties file
-#  lineinfile:
-#    state: present
-#    dest: "{{ confluence_path}}/{{confluence_software_folder}}-standalone/atlassian-confluence/WEB-INF/classes/confluence-application.properties"
-#    regexp: "confluence.home=.*"
-#    line: "confluence.home={{ confluence_software_home }}"
+- name: Edit the confluence application properties file
+  lineinfile:
+    state: present
+    dest: "{{ confluence_path}}/{{confluence_software_folder}}-standalone/atlassian-confluence/WEB-INF/classes/confluence-application.properties"
+    regexp: "confluence.home=.*"
+    line: "confluence.home={{ confluence_software_home }}"
