@@ -38,10 +38,7 @@
   become_user: postgres
   postgresql_db:
     name: "{{ conluence_postgres_db_name }}"
-    encoding: 'UNICODE'
-    lc_collate: 'C'
-    lc_ctype: 'C'
-    template: 'template0'
+    encoding: 'UTF-8'
     state: present
 
 - name: Ensure site user has access to the jira database
