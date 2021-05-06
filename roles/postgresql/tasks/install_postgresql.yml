@@ -12,7 +12,7 @@
     state: latest
 
 - name: Ensure that the service is running
-  service: 
+  service:
     name: postgresql
     state: restarted
 
@@ -22,22 +22,44 @@
     name: python-psycopg2
     state: latest
 
-- name: Ensure database is created
+- name: Ensure jira database is created
   become: true
   become_user: postgres
-  postgresql_db: 
-    name: "{{ postgres_db_name }}"
+  postgresql_db:
+    name: "{{ jira_postgres_db_name }}"
     encoding: 'UNICODE'
     lc_collate: 'C'
     lc_ctype: 'C'
     template: 'template0'
     state: present
 
-- name: Ensure user has access to the database
+- name: Ensure confluence database is created
   become: true
   become_user: postgres
-  postgresql_user: 
-    db: "{{ postgres_db_name }}"
+  postgresql_db:
+    name: "{{ conluence_postgres_db_name }}"
+    encoding: 'UNICODE'
+    lc_collate: 'C'
+    lc_ctype: 'C'
+    template: 'template0'
+    state: present
+
+- name: Ensure site user has access to the jira database
+  become: true
+  become_user: postgres
+  postgresql_user:
+    db: "{{ jira_postgres_db_name }}"
+    name: "{{ postgres_db_user }}"
+    password: "{{ postgres_db_password }}"
+    priv: ALL
+    state: present
+    encrypted: yes
+
+- name: Ensure site user has access to the confluence database
+  become: true
+  become_user: postgres
+  postgresql_user:
+    db: "{{ conluence_postgres_db_name }}"
     name: "{{ postgres_db_user }}"
     password: "{{ postgres_db_password }}"
     priv: ALL
@@ -47,9 +69,7 @@
 - name: Ensure user does not have unnecessary privileges
   become: true
   become_user: postgres
-  postgresql_user: 
+  postgresql_user:
     name: "{{ postgres_db_user }}"
     role_attr_flags: NOSUPERUSER,NOCREATEDB
     state: present
-
-

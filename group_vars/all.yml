@@ -6,7 +6,8 @@
 base_software_directory: "/opt/addteq"
 
 #Beginning of postgresql variables
-postgres_db_name: "sitedb"
+jira_postgres_db_name: "jiradb"
+conluence_postgres_db_name: "confdb"
 postgres_db_user: "sitedbuser"
 # This is where I would recommend using ansible vault as to not include a clear text password in the code,
 # but for the purposes of the demo I will exclude that portion
