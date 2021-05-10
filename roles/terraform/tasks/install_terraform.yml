@@ -20,9 +20,9 @@
   apt_repository:
     repo: "deb [arch=amd64] https://apt.releases.hashicorp.com {{ dist_query.stdout }} main"
     state: present
+    update_cache: yes
 
 - name: Install terraform
   apt:
     name: terraform
     state: latest
-    update_cache: yes
