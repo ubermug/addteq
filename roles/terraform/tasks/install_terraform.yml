@@ -12,9 +12,13 @@
     url: "https://apt.releases.hashicorp.com/gpg"
     state: present
 
+- name: Work out the distribution
+  command: lsb_release -sc
+  register: dist_query
+
 - name: Add terraform repository
   apt_repository:
-    repo: deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main
+    repo: "deb [arch=amd64] https://apt.releases.hashicorp.com {{ dist_query.stdout }} main"
     state: present
 
 - name: Install terraform
