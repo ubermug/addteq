@@ -4,7 +4,7 @@
 #################################################
 
 # Main play to install postgresql and jira
-- name: Run play to install Jira and postgresql
+- name: Run play to install terraform only
   hosts:
     - all
   become_user: root
@@ -12,9 +12,4 @@
   become_method: sudo
   gather_facts: yes
   roles:
-    - user_setup
-    - java
-    - postgresql
-    - jira
-    - confluence
     - terraform

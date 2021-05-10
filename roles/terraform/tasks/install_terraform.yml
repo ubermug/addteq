@@ -1,0 +1,19 @@
+- name:  Install the terraform prerequiste packages
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - gnupg
+    - software-properties-common
+    - curl
+
+- name: Install terraform gpg key
+  apt_key:
+    url: "https://apt.releases.hashicorp.com/gpg"
+    state: present
+
+- name: Install terraform
+  apt:
+    name: terraform
+    state: latest
+    update_cache: yes
